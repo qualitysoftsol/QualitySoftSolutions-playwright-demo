@@ -13,16 +13,27 @@ Framework de automatización E2E con Playwright + TypeScript, usando Page Object
 
 📁 Estructura del proyecto
 📦 playwright-demo
-├── 📂 tests
-│   ├── example.spec.ts        # Pruebas demo
-│   └── login.spec.ts          # Caso real de login
+├── 📂 .github
+│   └── 📂 workflows
+│       └── ci.yml                      # GitHub Actions
 │
-├── 📂 pages
-│   ├── BasePage.ts            # Clase base
-│   └── LoginPage.ts           # Page Object
-│
-├── 📂 fixtures
-│   └── testData.ts            # Data y configuraciones
+├── 📂 src
+│   ├── 📂 config        
+│   │   └── testConfig.ts               # Parametros de configuración
+│   ├── 📂 data        
+│   │   └── users.json                  # Data de usuarios
+│   ├── 📂 pages
+│   │   ├── HomePage.ts                 # Page Object
+│   │   ├── LoginPage.ts                # Page Object        
+│   │   └── ProductPage.ts              # Page Object
+│   ├── 📂 tests
+│   │   ├── api.test.ts                 # Pruebas api  
+│   │   ├── login.e2e.spec.ts           # Caso real de login  
+│   │   ├── purchase.e2e.spec.ts        # Caso real de compra        
+│   │   └── search.e2e.spec.ts          # Caso real de busqueda
+│   └── 📂 utils
+│       ├── apiClient.ts                # Page Object        
+│       └── helpers.ts                  # Caso real de login
 │
 ├── playwright.config.ts       # Configuración principal
 ├── package.json
