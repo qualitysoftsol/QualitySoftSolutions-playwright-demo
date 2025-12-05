@@ -1,12 +1,12 @@
 import { test, expect } from '../helpers/allureSteps';
 import { LoginPage } from '../pages/LoginPage';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-dotenv.config({ path: path.resolve(__dirname, '../../env/.env') });
 
 const user = process.env.USER_NAME;
 const pass = process.env.PASSWORD;
+
+if (!user || !pass) {
+  throw new Error('Environment variables USER_NAME and PASSWORD are not set. Ensure env/.env exists and is loaded (playwright.config.ts should call dotenv).');
+}
 
 test('Login exitoso', async ({ page , stepTest }) => {
   const login = new LoginPage(page);

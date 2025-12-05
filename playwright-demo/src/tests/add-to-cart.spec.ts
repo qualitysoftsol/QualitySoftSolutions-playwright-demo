@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-dotenv.config({ path: path.resolve(__dirname, '../../env/.env') });
 
 const user = process.env.USER_NAME;
 const pass = process.env.PASSWORD;
+
+if (!user || !pass) {
+  throw new Error('Environment variables USER_NAME and PASSWORD are not set. Ensure env/.env exists and is loaded (playwright.config.ts should call dotenv).');
+}
 
 test('Agregar producto al carrito', async ({ page }) => {
   const login = new LoginPage(page);
