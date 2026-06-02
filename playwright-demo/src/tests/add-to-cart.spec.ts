@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../helpers/allureSteps';
 import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 
@@ -9,15 +9,27 @@ if (!user || !pass) {
   throw new Error('Environment variables USER_NAME and PASSWORD are not set. Ensure env/.env exists and is loaded (playwright.config.ts should call dotenv).');
 }
 
-test('Agregar producto al carrito', async ({ page }) => {
+test('Agregar producto al carrito', async ({ page, stepTest }) => {
   const login = new LoginPage(page);
   const inventory = new InventoryPage(page);
 
-  await login.goto();
-  await login.login(user, pass);
+  await stepTest('Abrir página de login', async () => {
+    await login.goto();
+  });
 
-  await inventory.addItemToCart();
-  await inventory.goToCart();
+  await stepTest('Ingresar credenciales', async () => {
+    await login.login(user, pass);
+  });
 
-  await expect(page).toHaveURL(/cart/);
+  await stepTest('Agregar producto al carrito', async () => {
+    await inventory.addItemToCart();
+  });
+
+  await stepTest('Navegar al carrito', async () => {
+    await inventory.goToCart();
+  });
+
+  await stepTest('Validar URL del carrito', async () => {
+    await expect(page).toHaveURL(/cart/);
+  });
 });

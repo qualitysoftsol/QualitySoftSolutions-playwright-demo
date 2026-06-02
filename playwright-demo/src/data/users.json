@@ -1,0 +1,7 @@
+{
+  "checkout": {
+    "firstName": "John",
+    "lastName": "Tester",
+    "zip": "110111"
+  }
+}
